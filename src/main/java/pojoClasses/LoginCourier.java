@@ -1,10 +1,13 @@
 package pojoClasses;
 
-public class Courier {
+public class LoginCourier {
     private String login;
     private String password;
-    private String firstName;
 
+    public LoginCourier(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public String getLogin() {
         return login;
@@ -21,12 +24,7 @@ public class Courier {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public static LoginCourier fromCreateCourierData (CreateCourier createCourier){
+        return new pojoClasses.LoginCourier(createCourier.getLogin(), createCourier.getPassword());
     }
 }
