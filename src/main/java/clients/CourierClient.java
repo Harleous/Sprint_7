@@ -22,7 +22,15 @@ public class CourierClient extends BaseClient {
 
     }
 
+    public static io.restassured.response.ValidatableResponse loginNotValidLoginPassword (pojoClasses.NotValidLoginPassword notValidLoginPassword) {
+        return   given()
+                .spec(getSpec())
+                .body(notValidLoginPassword)
+                .when()
+                .post("/api/v1/courier/login")
+                .then();
 
+    }
     public static io.restassured.response.ValidatableResponse delete(int id) {
        return given()
                .spec(getSpec())
