@@ -10,21 +10,22 @@ public class CreateOrderTest {
     static dataProvider.OrderCreateNoColour orderCreateNoColour = new dataProvider.OrderCreateNoColour();
 
 @org.junit.runners.Parameterized.Parameter(1)
-public String colour;
+public String[] colour;
     @org.junit.runners.Parameterized.Parameters
-    public Object[][] orderDifferentColours() {
+    public java.util.List<Object[]> orderDifferentColours() {
 
-        return new Object[][] {
-                {orderCreateNoColour, "Black"},
-                {orderCreateNoColour, ("Black  Grey")},
-                {orderCreateNoColour, null},
+        return java.util.Arrays.asList( new Object[][] {
+                {orderCreateNoColour, new String[]{"Black"}},
+                {orderCreateNoColour, new String[] {"Black", "Grey"}},
+                {orderCreateNoColour, new String[] {}},
 
-        };
-    }
+
+    });}
 @org.junit.Test
         public void createOrder(){
-            pojoClasses.OrderCreate orderCreate = dataProvider.OrderCreateNoColour.getOrderCreateNoColourData();
-             int expectedTrack =
+    pojoClasses.OrderCreate orderCreate = new dataProvider.OrderCreateNoColour().getOrderCreateNoColourData();
+
+    int expectedTrack =
             orderClient.create(orderCreate)
                     .log().all()
                     .statusCode(201)
