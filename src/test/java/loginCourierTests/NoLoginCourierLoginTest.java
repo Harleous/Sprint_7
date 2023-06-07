@@ -1,10 +1,10 @@
 package loginCourierTests;
 
-public class CourierLoginTest {
+public class NoLoginCourierLoginTest {
     private Integer id;
     private clients.CourierClient courierClient = new clients.CourierClient();
     @org.junit.Test
-    public void courierShouldBeCreatedTest(){
+    public void courierShouldNotLoginTest(){
 
 
         //Создание курьера
@@ -15,21 +15,16 @@ public class CourierLoginTest {
                 .body("ok", org.hamcrest.Matchers.equalTo(true));
 
         //Логин
-        pojoClasses.LoginCourier loginCourier = pojoClasses.LoginCourier.fromCreateCourierData(createCourier);
-        id = clients.CourierClient.login(loginCourier)
+        pojoClasses.NoLoginCourierLogin noLoginCourierLogin =  pojoClasses.NoLoginCourierLogin.fromCreateCourierData(createCourier);
+        id = clients.CourierClient.loginNologin(noLoginCourierLogin)
                 .log().all()
-                .statusCode(200)
+                .statusCode(400)
+                .body("message", org.hamcrest.Matchers.equalTo("Недостаточно данных для входа"))
                 .extract().jsonPath().get("id");
 
 
 
     }
-    //Удаление
-    @org.junit.After
-    public void tearDown() {
-        if (id != 0) {
-            courierClient.delete(id).log().all().statusCode(200);
-        }
-    }
-}
 
+
+}

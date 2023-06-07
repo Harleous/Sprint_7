@@ -2,7 +2,7 @@ package createCourierTests;
 
 import static io.restassured.RestAssured.given;
 
-public class CourierTest {
+public class CreateCourierTest {
 private Integer id;
    private clients.CourierClient courierClient = new clients.CourierClient();
     @org.junit.Test

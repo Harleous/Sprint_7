@@ -21,6 +21,7 @@ public class NoLoginCreateCourierTest {
         id = clients.CourierClient.login(loginCourier)
                 .log().all()
                 .statusCode(400)
+                .body("message", org.hamcrest.Matchers.equalTo("Недостаточно данных для входа"))
                 .extract().jsonPath().get("id");
 
 

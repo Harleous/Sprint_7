@@ -12,6 +12,16 @@ public class CourierClient extends BaseClient {
                 .then();
 
     }
+    public static io.restassured.response.ValidatableResponse loginNologin (pojoClasses.NoLoginCourierLogin noLoginCourierLogin) {
+        return   given()
+                .spec(getSpec())
+                .body(noLoginCourierLogin)
+                .when()
+                .post("/api/v1/courier/login")
+                .then();
+
+    }
+
 
     public static io.restassured.response.ValidatableResponse delete(int id) {
        return given()
@@ -21,6 +31,7 @@ public class CourierClient extends BaseClient {
                 .delete("/api/v1/courier/{id}", id)
                 .then();
     }
+
 
     public io.restassured.response.ValidatableResponse create(pojoClasses.CreateCourier createCourier) {
 
