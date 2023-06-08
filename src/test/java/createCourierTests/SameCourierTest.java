@@ -4,6 +4,8 @@ public class SameCourierTest {
     private Integer id;
     private clients.CourierClient courierClient = new clients.CourierClient();
     @org.junit.Test
+    @io.qameta.allure.junit4.DisplayName("Создание курьера с повторным логином")
+    @io.qameta.allure.Description("Курьер с уже существующим Login не должен быть создан")
     public void courierShouldNotBeCreatedTest(){
 
 
@@ -25,7 +27,7 @@ public class SameCourierTest {
         courierClient.create(createCourier)
                 .log().all()
                 .statusCode(409)
-                .body("message", org.hamcrest.Matchers.equalTo("Этот логин уже используется"));
+                .body("message", org.hamcrest.Matchers.equalTo("Этот логин уже используется. Попробуйте другой."));
 
 
 

@@ -6,6 +6,8 @@ public class NoLoginCreateCourierTest {
     private clients.CourierClient courierClient = new clients.CourierClient();
 
     @org.junit.Test
+    @io.qameta.allure.junit4.DisplayName("Создание курьера без логина")
+    @io.qameta.allure.Description("Курьер не может быть создан без указания одного из полей. Например, Login.")
     public void courierShouldNotBeCreatedTest() {
 
 

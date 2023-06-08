@@ -44,6 +44,8 @@ public class CreateOrderTest {
     }
 
         @org.junit.Test
+        @io.qameta.allure.junit4.DisplayName("Создание заказа")
+        @io.qameta.allure.Description("Проверяем создание заказов с разными цветами : Черный, без указания, Черный и Серый")
         public void createOrder () {
 
          int track = given()

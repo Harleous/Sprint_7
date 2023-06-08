@@ -6,6 +6,8 @@ public class CreateCourierTest {
 private Integer id;
    private clients.CourierClient courierClient = new clients.CourierClient();
     @org.junit.Test
+    @io.qameta.allure.junit4.DisplayName("Cоздание курьера")
+    @io.qameta.allure.Description("Нормальное создание курьера с заполнением всех полей")
     public void courierShouldBeCreatedTest(){
 
 

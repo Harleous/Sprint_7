@@ -4,6 +4,8 @@ import static io.restassured.RestAssured.given;
 
 public class OrdersListTest {
     @org.junit.Test
+    @io.qameta.allure.junit4.DisplayName("Получение списка заказов")
+    @io.qameta.allure.Description("Получаем список заказов без courierId")
     public void getOrdersList() {
 
         java.util.List<java.util.ArrayList> orders = given()

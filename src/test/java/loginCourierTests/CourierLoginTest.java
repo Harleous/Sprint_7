@@ -4,7 +4,9 @@ public class CourierLoginTest {
     private Integer id;
     private clients.CourierClient courierClient = new clients.CourierClient();
     @org.junit.Test
-    public void courierShouldBeCreatedTest(){
+    @io.qameta.allure.junit4.DisplayName("Нормальная авторизация курьера")
+    @io.qameta.allure.Description("Создаем, а затем авторизуем курьра")
+    public void courierShouldBeLoggedTest(){
 
 
         //Создание курьера

@@ -5,6 +5,8 @@ public class NotValidLoginPasswordLoginTest {
     private clients.CourierClient courierClient = new clients.CourierClient();
     pojoClasses.CreateCourier createCourier = dataProvider.RandomCreateCourierDataProvider.getRandomCourierData();
     @org.junit.Test
+    @io.qameta.allure.junit4.DisplayName("Авторизация с несуществующей парой Login/Password")
+    @io.qameta.allure.Description("После нормального создания курьера проводим авторизацию с его логином и другим паролем.")
     public void courierNotValidLoginPasswordLoginTest(){
 
 
