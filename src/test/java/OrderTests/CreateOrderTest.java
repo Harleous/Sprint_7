@@ -50,13 +50,13 @@ public class CreateOrderTest {
                     .contentType(io.restassured.http.ContentType.JSON)
                     .body(orderData())
                     .when()
-                    .post("http://qa-scooter.praktikum-services.ru/api/v1/courier")
+                    .post("http://qa-scooter.praktikum-services.ru/api/v1/orders")
                     .then()
                     .statusCode(201)
                     .log().all()
                     .extract().jsonPath().get("track");
 
-System.out.println(track);
+
 
 
     }
