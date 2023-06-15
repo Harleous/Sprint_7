@@ -25,6 +25,6 @@ public class LoginCourier {
         this.password = password;
     }
     public static LoginCourier fromCreateCourierData (CreateCourier createCourier){
-        return new pojoClasses.LoginCourier(createCourier.getLogin(), createCourier.getPassword());
+        return new LoginCourier(createCourier.getLogin(), createCourier.getPassword());
     }
 }

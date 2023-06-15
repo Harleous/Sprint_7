@@ -1,12 +1,23 @@
 package loginCourierTests;
 
+import clients.CourierClient;
+import dataProvider.RandomCreateCourierDataProvider;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import org.hamcrest.Matchers;
+import org.junit.After;
+import org.junit.Test;
+import pojoClasses.CreateCourier;
+import pojoClasses.LoginCourier;
+import pojoClasses.NotValidLoginPassword;
+
 public class NotValidLoginPasswordLoginTest {
     private Integer id;
-    private clients.CourierClient courierClient = new clients.CourierClient();
-    pojoClasses.CreateCourier createCourier = dataProvider.RandomCreateCourierDataProvider.getRandomCourierData();
-    @org.junit.Test
-    @io.qameta.allure.junit4.DisplayName("Авторизация с несуществующей парой Login/Password")
-    @io.qameta.allure.Description("После нормального создания курьера проводим авторизацию с его логином и другим паролем.")
+    private CourierClient courierClient = new CourierClient();
+    CreateCourier createCourier = RandomCreateCourierDataProvider.getRandomCourierData();
+    @Test
+    @DisplayName("Авторизация с несуществующей парой Login/Password")
+    @Description("После нормального создания курьера проводим авторизацию с его логином и другим паролем.")
     public void courierNotValidLoginPasswordLoginTest(){
 
 
@@ -15,23 +26,23 @@ public class NotValidLoginPasswordLoginTest {
         courierClient.create(createCourier)
                 .log().all()
                 .statusCode(201)
-                .body("ok", org.hamcrest.Matchers.equalTo(true));
+                .body("ok", Matchers.equalTo(true));
 
         //Логин
-        pojoClasses.NotValidLoginPassword notValidLoginPassword = pojoClasses.NotValidLoginPassword.fromCreateCourierData(createCourier);
-        id = clients.CourierClient.loginNotValidLoginPassword(notValidLoginPassword)
+        NotValidLoginPassword notValidLoginPassword = NotValidLoginPassword.fromCreateCourierData(createCourier);
+        id = CourierClient.loginNotValidLoginPassword(notValidLoginPassword)
                 .log().all()
                 .statusCode(404)
-                .body("message", org.hamcrest.Matchers.equalTo("Учетная запись не найдена"))
+                .body("message", Matchers.equalTo("Учетная запись не найдена"))
                 .extract().jsonPath().get("id");
 
 
 
     }
-    @org.junit.After
+    @After
     public void tearDown() {
-        pojoClasses.LoginCourier loginCourier = pojoClasses.LoginCourier.fromCreateCourierData(createCourier);
-        id = clients.CourierClient.login(loginCourier)
+        LoginCourier loginCourier = LoginCourier.fromCreateCourierData(createCourier);
+        id = CourierClient.login(loginCourier)
                 .log().all()
                 .statusCode(200)
                 .extract().jsonPath().get("id");

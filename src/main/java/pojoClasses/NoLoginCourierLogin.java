@@ -26,7 +26,7 @@ public class NoLoginCourierLogin  {
         this.password = password;
     }
     public static NoLoginCourierLogin fromCreateCourierData (CreateCourier createCourier){
-        return new pojoClasses.NoLoginCourierLogin(createCourier.getLogin(), createCourier.getPassword());
+        return new NoLoginCourierLogin(createCourier.getLogin(), createCourier.getPassword());
     }
 
 

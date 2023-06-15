@@ -1,36 +1,46 @@
 package createCourierTests;
 
+import clients.CourierClient;
+import dataProvider.NoLoginCourierDataProvider;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import org.hamcrest.Matchers;
+import org.junit.After;
+import org.junit.Test;
+import pojoClasses.CreateCourier;
+import pojoClasses.LoginCourier;
+
 public class NoLoginCreateCourierTest {
 
     private Integer id;
-    private clients.CourierClient courierClient = new clients.CourierClient();
+    private CourierClient courierClient = new CourierClient();
 
-    @org.junit.Test
-    @io.qameta.allure.junit4.DisplayName("Создание курьера без логина")
-    @io.qameta.allure.Description("Курьер не может быть создан без указания одного из полей. Например, Login.")
+    @Test
+    @DisplayName("Создание курьера без логина")
+    @Description("Курьер не может быть создан без указания одного из полей. Например, Login.")
     public void courierShouldNotBeCreatedTest() {
 
 
         //Создание курьера
-        pojoClasses.CreateCourier createCourier = dataProvider.NoLoginCourierDataProvider.getNoLoginCourierData();
+        CreateCourier createCourier = NoLoginCourierDataProvider.getNoLoginCourierData();
         courierClient.create(createCourier)
                 .log().all()
                 .statusCode(400)
-                .body("message", org.hamcrest.Matchers.equalTo("Недостаточно данных для создания учетной записи"));
+                .body("message", Matchers.equalTo("Недостаточно данных для создания учетной записи"));
 
         //Логин
-        pojoClasses.LoginCourier loginCourier = pojoClasses.LoginCourier.fromCreateCourierData(createCourier);
-        id = clients.CourierClient.login(loginCourier)
+        LoginCourier loginCourier = LoginCourier.fromCreateCourierData(createCourier);
+        id = CourierClient.login(loginCourier)
                 .log().all()
                 .statusCode(400)
-                .body("message", org.hamcrest.Matchers.equalTo("Недостаточно данных для входа"))
+                .body("message", Matchers.equalTo("Недостаточно данных для входа"))
                 .extract().jsonPath().get("id");
 
 
     }
 
     //Удаление
-    @org.junit.After
+    @After
     public void tearDown() {
         if (id == null) {
             System.out.println("Курьер не создан. Удалять нечего.");

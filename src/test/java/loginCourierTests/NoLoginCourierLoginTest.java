@@ -1,27 +1,36 @@
 package loginCourierTests;
 
+import clients.CourierClient;
+import dataProvider.RandomCreateCourierDataProvider;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+import pojoClasses.CreateCourier;
+import pojoClasses.NoLoginCourierLogin;
+
 public class NoLoginCourierLoginTest {
     private Integer id;
-    private clients.CourierClient courierClient = new clients.CourierClient();
-    @org.junit.Test
-    @io.qameta.allure.junit4.DisplayName("Авторизация курьера без Login")
-    @io.qameta.allure.Description("Сначала нормально создаем курьера. Затем пытаемся авторизоваться без Login")
+    private CourierClient courierClient = new CourierClient();
+    @Test
+    @DisplayName("Авторизация курьера без Login")
+    @Description("Сначала нормально создаем курьера. Затем пытаемся авторизоваться без Login")
     public void courierShouldNotLoginTest(){
 
 
         //Создание курьера
-        pojoClasses.CreateCourier createCourier = dataProvider.RandomCreateCourierDataProvider.getRandomCourierData();
+        CreateCourier createCourier = RandomCreateCourierDataProvider.getRandomCourierData();
         courierClient.create(createCourier)
                 .log().all()
                 .statusCode(201)
-                .body("ok", org.hamcrest.Matchers.equalTo(true));
+                .body("ok", Matchers.equalTo(true));
 
         //Логин
-        pojoClasses.NoLoginCourierLogin noLoginCourierLogin =  pojoClasses.NoLoginCourierLogin.fromCreateCourierData(createCourier);
-        id = clients.CourierClient.loginNologin(noLoginCourierLogin)
+        NoLoginCourierLogin noLoginCourierLogin =  NoLoginCourierLogin.fromCreateCourierData(createCourier);
+        id = CourierClient.loginNologin(noLoginCourierLogin)
                 .log().all()
                 .statusCode(400)
-                .body("message", org.hamcrest.Matchers.equalTo("Недостаточно данных для входа"))
+                .body("message", Matchers.equalTo("Недостаточно данных для входа"))
                 .extract().jsonPath().get("id");
 
 

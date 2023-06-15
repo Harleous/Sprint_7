@@ -1,5 +1,7 @@
 package pojoClasses;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class NotValidLoginPassword {
 
 
@@ -21,13 +23,13 @@ public class NotValidLoginPassword {
         }
 
         public String getPassword() {
-            return password = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(6);        }
+            return password = RandomStringUtils.randomAlphabetic(6);        }
 
         public void setPassword(String password) {
             this.password  = password;
         }
-        public static pojoClasses.NotValidLoginPassword fromCreateCourierData (CreateCourier createCourier){
-            return new pojoClasses.NotValidLoginPassword(createCourier.getLogin(), createCourier.getPassword());
+        public static NotValidLoginPassword fromCreateCourierData (CreateCourier createCourier){
+            return new NotValidLoginPassword(createCourier.getLogin(), createCourier.getPassword());
         }
 
 

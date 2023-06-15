@@ -1,13 +1,21 @@
 package OrderTests;
 
 
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
+import io.restassured.http.ContentType;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import static io.restassured.RestAssured.get;
+import java.util.Arrays;
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 
 
-@org.junit.runner.RunWith(org.junit.runners.Parameterized.class)
+@RunWith(Parameterized.class)
 public class CreateOrderTest {
     private  String firstName;
     private  String lastName;
@@ -33,8 +41,8 @@ public class CreateOrderTest {
         this.color =  color;
     }
     @Parameters
-        public static java.util.List<Object[]> orderData() {
-         return java.util.Arrays.asList( new   Object[][] {
+        public static List<Object[]> orderData() {
+         return Arrays.asList( new   Object[][] {
                     {"Vasia", "Vasiliev", "Павлова 7", "Молодежная", "+79261234567", 5, "2025-08-10", "No comments", new String[]{"BLACK"}},
                     {"Ivan", "Ivanov", "Азатяна 17", "Кунцевская", "+79581234567", 3, "2025-08-10", "Faster, harder, Scooter", null},
                     {"Ivan1", "Ivanov1", "Азатяна 171", "Кунцевская", "+79581234567", 3, "2025-08-10", "Faster, harder, Scooter", new String[]{"BLACK", "GREY"}},
@@ -43,13 +51,13 @@ public class CreateOrderTest {
 
     }
 
-        @org.junit.Test
-        @io.qameta.allure.junit4.DisplayName("Создание заказа")
-        @io.qameta.allure.Description("Проверяем создание заказов с разными цветами : Черный, без указания, Черный и Серый")
+        @Test
+        @DisplayName("Создание заказа")
+        @Description("Проверяем создание заказов с разными цветами : Черный, без указания, Черный и Серый")
         public void createOrder () {
 
          int track = given()
-                    .contentType(io.restassured.http.ContentType.JSON)
+                    .contentType(ContentType.JSON)
                     .body(orderData())
                     .when()
                     .post("http://qa-scooter.praktikum-services.ru/api/v1/orders")
