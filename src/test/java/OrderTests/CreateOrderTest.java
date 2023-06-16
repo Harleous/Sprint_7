@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.hasKey;
 
 
 @RunWith(Parameterized.class)
@@ -63,6 +64,7 @@ public class CreateOrderTest {
                     .post("http://qa-scooter.praktikum-services.ru/api/v1/orders")
                     .then()
                     .statusCode(201)
+                 .body("$",hasKey("track"))
                     .log().all()
                     .extract().jsonPath().get("track");
 
